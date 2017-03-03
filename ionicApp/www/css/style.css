@@ -1,0 +1,28 @@
+/* Empty. Add your own CSS if you like */
+#start_id {
+  /*color: lightcyan;*/
+  margin-left: 50px; /* left margin = 25 % of viewport width */
+  margin-top: 250px; /* left margin = 25 % of viewport width */
+}
+
+.scroll-content{
+  margin-top: 100px;
+  opacity: 0.4;
+  background-image: url('../img/Quiz-Time.png');
+  background-repeat: no-repeat;
+}
+
+#q1_img{
+  margin-left: 25vw;
+}
+
+#q1_answer_1{
+  margin-left: 25vw;
+}
+
+#q2_id{
+  margin-left: 25vw;
+}
+#result_id{
+  margin-left: 25vw;
+}
