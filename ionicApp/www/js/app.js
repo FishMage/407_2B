@@ -51,6 +51,12 @@ var starter = angular.module('starter', ['ionic', 'starter.controller'])
       controller: 'game2Ctrl',
 
     })
+    .state('game_3', {
+      cache: false,
+      url: "/game_3",
+      templateUrl: "templates/game_3.html",
+      controller: 'game3Ctrl',
+    })
   .state('result', {
       url: "/result",
       templateUrl: "templates/result.html",

@@ -7,8 +7,8 @@
 
 .scroll-content{
   margin-top: 100px;
-  opacity: 0.4;
-  background-image: url('../img/Quiz-Time.png');
+  opacity: 0.8;
+  //background-image: url('../img/Quiz-Time.png');
   background-repeat: no-repeat;
 }
 
