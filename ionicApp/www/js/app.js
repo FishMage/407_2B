@@ -40,15 +40,15 @@ var starter = angular.module('starter', ['ionic', 'starter.controller'])
       templateUrl: "templates/home.html",
       controller: 'homeCtrl'
     })
-    .state('game_1',{
+    .state('tictactoe',{
       url:"/game_1",
       templateUrl: "templates/game_1.html",
       controller: 'game1Ctrl',
     })
-    .state('game_2', {
-      url: "/game_2",
-      templateUrl: "templates/game_2.html",
-      controller: 'game2Ctrl',
+    .state('app.flappybird', {
+      url: "/flappybird",
+      templateUrl: "templates/flappybird.html",
+      controller: 'FlappyBirdController',
 
     })
     .state('game_3', {
@@ -57,6 +57,7 @@ var starter = angular.module('starter', ['ionic', 'starter.controller'])
       templateUrl: "templates/game_3.html",
       controller: 'game3Ctrl',
     })
+
   .state('result', {
       url: "/result",
       templateUrl: "templates/result.html",

@@ -6,85 +6,96 @@
 		.controller('SignatureController', SignatureController);
 
 	SignatureController.$inject = ['$scope', 'SignaturePlay', 'Modals'];
-	function SignatureController($scope, SignaturePlay, Modals) {
+	function SignatureController($scope,$state,$stateParams, SignaturePlay, Modals) {
+    $scope.playerScores = [0, 0];
 
-		//Based on http://perfectionkills.com/exploring-canvas-drawing-techniques/
-		$scope.signature = {
-            width: "100%",
-			renderer: Phaser.CANVAS,
-			state: angular.copy(SignaturePlay),
-			initialize: false
-		};
+    $scope.startHome = function(){
+      $state.go("home", {
 
-		$scope.signatureTool = {
-			lineWidth: 5,
-			options: [
-				{
-					image: "res/signature/assets/1.png",
-					selected: true
-				}, {
-					image: "res/signature/assets/2.png"
-				}, {
-					image: "res/signature/assets/3.png"
-				}, {
-					image: "res/signature/assets/4.png"
-				}, {
-					image: "res/signature/assets/5.png"
-				}, {
-					image: "res/signature/assets/6.png"
-				}, {
-					image: "res/signature/assets/7.png"
-				}, {
-					image: "res/signature/assets/8.png"
-				}, {
-					image: "res/signature/assets/9.png"
-				}, {
-					image: "res/signature/assets/10.png"
-				}, {
-					image: "res/signature/assets/11.png"
-				}, {
-					image: "res/signature/assets/12.png"
-				}, {
-					image: "res/signature/assets/13.png"
-				}, {
-					image: "res/signature/assets/14.png"
-				}, {
-					image: "res/signature/assets/15.png"
-				}]
-		};
+      })
+    }
 
-		$scope.selectOption = function(position) {
+    function getRandomOperator() {
+      var operators = ["+", "-", "*", "/"];
+      return operators[getRandomInt(0, 3)];
+    }
 
-			$scope.signatureTool.options.map(function(option) { option.selected = false; });
-			$scope.signatureTool.options[position].selected = true;
-			$scope.signature.instance.state.getCurrentState().changeOption(position);
-		};
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
 
-		$scope.changeLineWidth = function() {
-			$scope.signature.instance.state.getCurrentState().changeLineWidth($scope.signatureTool.lineWidth);
-		};
+    function getRandomAnswer(previousRandomAnswers) {
+      var minCoefficient = 0.5;
+      var maxCoefficient = 2;
+      var constant = getRandomInt(1, 9);
+      constant *= ((getRandomInt(0, 1) == 0) ? -1 : 1);
+      var randomAnswer = getRandomInt(minCoefficient * previousRandomAnswers[0] + constant, maxCoefficient * previousRandomAnswers[0] + constant);
+      for (var i = 0; i < previousRandomAnswers.length; i++) {
+        if (previousRandomAnswers[i] == randomAnswer) {
+          return getRandomAnswer(previousRandomAnswers);
+        }
+      }
+      return randomAnswer;
+    }
 
-		$scope.clearSignature = function() {
-			$scope.signature.instance.state.getCurrentState().clearCanvas();
-		};
+    function shuffle(a) {
+      var j, x, i;
+      for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+      }
+    }
 
-		$scope.previewSignature = function() {
+    // +, - only for simplicity
+    $scope.getRandomQuestion = function() {
+      var numberOfAnswers = 4;
+      var valueNum = getRandomInt(2, 4);
+      var question = {
+        "question" : "",
+        "answers": [],
+      };
+      for (var i = 0; i < valueNum; i++) {
+        var num = getRandomInt(1, 9);
+        question.question += num + " ";
+        if (i != valueNum - 1) {
+          question.question += getRandomOperator() + " ";
+        }
+      }
+      question.question = question.question.substring(0, question.question.length - 1);
+      question.result = eval(question.question);
+      for (var i = 0; i < numberOfAnswers; i++) {
+        if (i == 0) question.answers.push(question.result);
+        else {
+          question.answers.push(getRandomAnswer(question.answers));
+        }
+      }
+      $scope.question = question;
+    }
 
-			$scope.previewImage = $scope.signature.instance.state.getCurrentState().getImage();
-			Modals.openModal($scope, 'templates/modals/previewImage.html', 'bounceInRight animated');
-		};
-		
-		$scope.closeModal = function(){
-			Modals.closeModal();
-		};
-		
-		$scope.$on('$ionicView.afterEnter', function () {
-			$scope.signature.height = document.getElementById("signature").clientHeight;
-			$scope.signature.initialize = true;
-            
-            $scope.signatureTool.lineWidth = 5;
-            $scope.signatureTool.options.map(function (option) { option.selected = false; });
-            $scope.signatureTool.options[0].selected = true;
-		});
+    function resetScore() {
+      $scope.playerScores = [0 , 0];
+    }
+
+    $scope.checkResult = function(user, response) {
+      if (response.toFixed(0) == $scope.question.result.toFixed(0)) {
+        $scope.playerScores[user]++;
+      }
+      else {
+        $scope.playerScores[Math.abs(user-1)]++;
+      }
+      // Check win
+      if ($scope.playerScores[0] == 4 || $scope.playerScores[1] == 4) {
+        // DONT DO IT!
+        alert("Player " + ($scope.playerScores[0] == 4 ? "Two " : "One ") + "SUCKS!");
+        $state.go("home", {});
+      }
+      else {
+        $scope.getRandomQuestion();
+      }
+    }
 	}
 })();
