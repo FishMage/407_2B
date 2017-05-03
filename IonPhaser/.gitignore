@@ -8,6 +8,5 @@ plugins/
 www/build/
 www/css/style.*
 www/img/
-www/templates/
 www/index.html
 
