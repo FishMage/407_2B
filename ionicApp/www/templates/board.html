@@ -31,11 +31,11 @@
         <div >
             <div class="container">
                 <div class="well">
-                    <br><br>
-                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:20px; margin-left:20px; font-size: 500%" ng-repeat="cell in board[0]" ng-disabled="isTaken(cell);" ng-click="move(cell);">{{ cell.value }}</button></div>
-                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:20px; margin-left:20px; font-size: 500%"ng-repeat="cell in board[1]" ng-disabled="isTaken(cell);" ng-click="move(cell);">{{ cell.value }}</button></div>
-                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:20px; margin-left:20px; font-size: 500%" ng-repeat="cell in board[2]" ng-disabled="isTaken(cell);" ng-click="move(cell);">{{ cell.value }}</button></div>
-                    <br/><br>
+                    <br>
+                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:10px; margin-left:10px; font-size: 600%" ng-repeat="cell in board[0]" ng-disabled="isTaken(cell);" ng-click="move(cell);">{{ cell.value }}</button></div>
+                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:10px; margin-left:10px; font-size: 600%"ng-repeat="cell in board[1]" ng-disabled="isTaken(cell);" ng-click="move(cell);">{{ cell.value }}</button></div>
+                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:10px; margin-left:10px; font-size: 600%" ng-repeat="cell in board[2]" ng-disabled="isTaken(cell);" ng-click="move(cell);">{{ cell.value }}</button></div>
+                    <br>
                     <p>
                         <span ng-hide="winner || cat">Current Player: {{ currentPlayer }}</span>
                         <span ng-show="winner">Yay Player {{ currentPlayer }} won!</span>
