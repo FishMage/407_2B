@@ -32,9 +32,9 @@
             <div class="container">
                 <div class="well">
                     <br>
-                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:10px; margin-left:10px; font-size: 600%" ng-repeat="cell in board[0]" ng-disabled="isTaken(cell);" ng-click="move(cell);">{{ cell.value }}</button></div>
-                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:10px; margin-left:10px; font-size: 600%"ng-repeat="cell in board[1]" ng-disabled="isTaken(cell);" ng-click="move(cell);">{{ cell.value }}</button></div>
-                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:10px; margin-left:10px; font-size: 600%" ng-repeat="cell in board[2]" ng-disabled="isTaken(cell);" ng-click="move(cell);">{{ cell.value }}</button></div>
+                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:10px; margin-left:10px; font-size: 600%" ng-repeat="cell in board[0]" ng-disabled="isTaken(cell) || checkForEndOfGame()" ng-click="move(cell);">{{ cell.value }}</button></div>
+                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:10px; margin-left:10px; font-size: 600%"ng-repeat="cell in board[1]" ng-disabled="isTaken(cell) || checkForEndOfGame()" ng-click="move(cell);">{{ cell.value }}</button></div>
+                    <div><button ion-button class="button button-assertive" style="height:100px; width:100px; margin-top:10px; margin-left:10px; font-size: 600%" ng-repeat="cell in board[2]" ng-disabled="isTaken(cell) || checkForEndOfGame()" ng-click="move(cell);">{{ cell.value }}</button></div>
                     <br>
                     <p>
                         <span ng-hide="winner || cat">Current Player: {{ currentPlayer }}</span>

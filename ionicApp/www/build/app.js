@@ -222,7 +222,7 @@ window.queries = [
                 cell1.value !== '-';
         };
 
-        var checkForEndOfGame = function() {
+        $scope.checkForEndOfGame = function() {
             // TODO: check for a rowMatch, columnMatch, or diagonalMatch
             for(var i = 0; i < 3; i++) {
                 if (checkForMatch($scope.board[i][0],$scope.board[i][1],$scope.board[i][2]) === true) {
@@ -260,7 +260,7 @@ window.queries = [
 
         $scope.move = function(cell) {
             cell.value = $scope.currentPlayer;
-            if (checkForEndOfGame() === false) {
+            if ($scope.checkForEndOfGame() === false) {
                 $scope.currentPlayer = $scope.currentPlayer === 'X' ? 'O' : 'X';
             }
         };
